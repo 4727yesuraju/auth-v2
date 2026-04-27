@@ -80,7 +80,9 @@ Cookie cleared
 5. MFA Flow (if enabled)
 After login → OTP/TOTP required
 Access granted only after verification
-📂 Project Structure
+## 📂 Project Structure
+
+```
 mern-auth-system/
 │
 ├── client/                 # React frontend
@@ -99,6 +101,7 @@ mern-auth-system/
 ├── .env
 ├── README.md
 └── package.json
+```
 🔐 Environment Variables
 JWT_ACCESS_SECRET=
 JWT_REFRESH_SECRET=
