@@ -1,85 +1,118 @@
-🚀 MERN Auth System (JWT + OAuth + MFA)
+# 🚀 MERN Authentication System (JWT + OAuth + MFA)
 
-A production-grade authentication system built with the MERN stack, implementing modern security best practices:
+A **production-ready authentication system** built using the MERN stack with modern security practices like JWT (access + refresh tokens), HTTP-only cookies, Google OAuth, and Multi-Factor Authentication (MFA).
 
-🔐 JWT Authentication (Access + Refresh Tokens)
-🍪 HTTP-only Secure Cookies
-🔑 OAuth Login (Google)
-📲 Multi-Factor Authentication (OTP / TOTP)
-♻️ Token Rotation & Revocation
-🛡️ Secure Backend Architecture
-🧠 Why This Project?
+---
 
-Most tutorials stop at basic JWT login. This project goes further and implements real-world authentication patterns used in scalable systems.
+## 🧠 Why This Project?
 
-Designed for:
+Most basic auth tutorials stop at simple JWT login.  
+This project goes beyond that and demonstrates **real-world authentication architecture** used in scalable production systems.
 
-Learning production-level auth
-Preparing for system design interviews
-Serving as a starter boilerplate
-✨ Features
-🔐 Authentication
-User signup & login
-Password hashing (bcrypt)
-JWT-based authentication
-🔁 Token System
-Short-lived Access Token
-Long-lived Refresh Token
-Token rotation on refresh
-Logout with token invalidation
-🍪 Secure Cookies
-HTTP-only cookies (no XSS access)
-Secure & SameSite configuration
-Refresh token stored safely
-🌐 OAuth Integration
-Google OAuth login
-Auto account linking
-Fallback to email/password login
-📲 Multi-Factor Authentication (MFA)
-OTP (email/SMS) or TOTP (authenticator apps)
-Enable/disable MFA per user
-MFA verification during login
-🛡️ Security Best Practices
-Input validation
-Rate limiting (prevent brute force)
-CSRF protection
-Helmet for secure headers
-🏗️ Tech Stack
-Frontend
-React
-Axios
-Context API / Redux (optional)
-Backend
-Node.js
-Express.js
-Database
-MongoDB + Mongoose
-Auth & Security
-jsonwebtoken (JWT)
-bcrypt
-cookie-parser
-OAuth (Google)
-speakeasy / otplib (for MFA)
-🔄 Authentication Flow
-1. Login
-User logs in (email/password or OAuth)
-Server returns:
-Access Token (short-lived)
-Refresh Token (HTTP-only cookie)
-2. Access Protected Routes
-Client sends Access Token in headers
-Server verifies JWT
-3. Token Refresh
-When access token expires:
-Client calls /refresh
-Server validates refresh token (cookie)
-Issues new access token
-4. Logout
-Refresh token invalidated (DB/blacklist)
-Cookie cleared
-5. MFA Flow (if enabled)
-After login → OTP/TOTP required
-Access granted only after verification
+It is ideal for:
+- 🎯 MERN stack mastery
+- 🎯 System design interview preparation
+- 🎯 Building production-grade backend skills
+
+---
+
+## ✨ Features
+
+### 🔐 Authentication System
+- User registration & login
+- Secure password hashing using bcrypt
+- JWT-based authentication system
+
+### 🔁 Token System
+- Access Token (short-lived)
+- Refresh Token (long-lived)
+- Token rotation & renewal
+- Secure logout with token invalidation
+
+### 🍪 Secure Cookie Handling
+- HTTP-only cookies (prevents XSS attacks)
+- Secure + SameSite cookie configuration
+- Refresh token stored safely in cookies
+
+### 🌐 OAuth Login
+- Google OAuth integration
+- One-click login experience
+- Automatic account linking
+
+### 📲 Multi-Factor Authentication (MFA)
+- OTP (Email/SMS) or TOTP (Authenticator apps)
+- Optional per-user MFA activation
+- MFA verification during login flow
+
+### 🛡️ Security Enhancements
+- Input validation
+- Rate limiting (brute-force protection)
+- Helmet security headers
+- CSRF protection (where applicable)
+
+---
+
+## 🏗️ Tech Stack
+
+### Frontend
+- React.js
+- Axios
+- Context API / Redux (optional)
+
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MongoDB + Mongoose
+
+### Authentication & Security
+- JWT (jsonwebtoken)
+- bcrypt
+- cookie-parser
+- OAuth 2.0 (Google)
+- speakeasy / otplib (MFA)
+
+---
+
+## 🔄 Authentication Flow
+
+### 1️⃣ Login Flow
+- User logs in using email/password or Google OAuth
+- Server issues:
+  - Access Token (short expiry)
+  - Refresh Token (stored in HTTP-only cookie)
+
+---
+
+### 2️⃣ Access Protected Routes
+- Client sends Access Token in request headers
+- Backend validates JWT before granting access
+
+---
+
+### 3️⃣ Token Refresh Flow
+- When Access Token expires:
+  - Client calls `/auth/refresh`
+  - Server verifies Refresh Token (cookie)
+  - Issues a new Access Token
+
+---
+
+### 4️⃣ Logout Flow
+- Refresh token is cleared/invalidated
+- Cookies are removed
+- Session is terminated
+
+---
+
+### 5️⃣ MFA Flow (Optional)
+- After login, MFA challenge is triggered
+- User verifies OTP/TOTP
+- Access granted only after successful verification
+
+---
+
 ## 📂 Project Structure
 
 ```
@@ -90,7 +123,7 @@ mern-auth-system/
 │   ├── pages/
 │   └── context/
 │
-├── server/
+├── server/                 # Express backend
 │   ├── controllers/
 │   ├── routes/
 │   ├── middleware/
@@ -102,54 +135,89 @@ mern-auth-system/
 ├── README.md
 └── package.json
 ```
-🔐 Environment Variables
-JWT_ACCESS_SECRET=
-JWT_REFRESH_SECRET=
-MONGO_URI=
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-COOKIE_SECRET=
-⚙️ Setup Instructions
-# Clone repo
+
+---
+
+## 🔐 Environment Variables
+
+```
+JWT_ACCESS_SECRET=your_access_secret
+JWT_REFRESH_SECRET=your_refresh_secret
+MONGO_URI=your_mongodb_connection_string
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+COOKIE_SECRET=your_cookie_secret
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+```bash
+# 1. Clone repository
 git clone https://github.com/your-username/mern-auth-system.git
 
-# Install dependencies
-cd server && npm install
-cd client && npm install
+# 2. Install backend dependencies
+cd server
+npm install
 
-# Run backend
+# 3. Install frontend dependencies
+cd ../client
+npm install
+
+# 4. Run backend server
 cd server
 npm run dev
 
-# Run frontend
+# 5. Run frontend
 cd client
 npm start
-🧪 API Endpoints (Sample)
-Method	Endpoint	Description
-POST	/auth/register	Register user
-POST	/auth/login	Login user
-POST	/auth/refresh	Refresh token
-POST	/auth/logout	Logout user
-GET	/auth/google	Google OAuth
-POST	/auth/mfa/verify	Verify OTP/TOTP
-📈 Future Improvements
-🔑 Role-Based Access Control (RBAC)
-📊 Login analytics & audit logs
-🔔 Push-based MFA (instead of OTP)
-🌍 Multi-device session management
-🏆 Key Learnings
-Stateless vs stateful authentication
-Secure token storage strategies
-OAuth integration in real systems
-Implementing MFA in scalable apps
-📌 Inspiration
+```
 
-Built following best practices inspired by modern authentication systems used by companies like Google and Auth0.
+---
 
-🤝 Contributing
+## 📡 API Endpoints
 
-Pull requests are welcome. For major changes, open an issue first.
+| Method | Endpoint            | Description              |
+|--------|---------------------|--------------------------|
+| POST   | /auth/register      | Register new user       |
+| POST   | /auth/login         | Login user              |
+| POST   | /auth/refresh       | Refresh access token    |
+| POST   | /auth/logout        | Logout user             |
+| GET    | /auth/google        | Google OAuth login      |
+| POST   | /auth/mfa/verify    | Verify MFA OTP/TOTP     |
 
-📄 License
+---
 
-MIT
+## 📈 Future Improvements
+
+- Role-Based Access Control (RBAC)
+- Session/device management
+- Push-based MFA authentication
+- Advanced audit logging system
+- Email verification system
+
+---
+
+## 🏆 Key Learnings
+
+- JWT authentication architecture
+- Secure cookie-based authentication
+- OAuth 2.0 integration flow
+- MFA implementation in real systems
+- Scalable backend authentication design
+
+---
+
+## 🤝 Contributions
+
+Contributions are welcome!  
+Feel free to open issues or submit pull requests.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
